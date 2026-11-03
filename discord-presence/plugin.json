@@ -1,0 +1,28 @@
+{
+  "format": 2,
+  "kind": "native",
+  "id": "com.melodia.discordpresence",
+  "name": "Discord 听歌状态",
+  "version": "1.0.0",
+  "author": "Melodia",
+  "description": "在 Discord 上显示正在播放的歌曲",
+  "apiVersion": "1.0",
+  "platforms": ["desktop"],
+  "main": "com.melodia.discordpresence.DiscordPresencePlugin",
+  "permissions": ["playback.read"],
+  "contributes": {
+    "events": ["songChanged", "playStateChanged", "progress"],
+    "settings": [
+      {
+        "id": "paused_behavior",
+        "type": "select",
+        "title": "暂停时",
+        "default": "clear",
+        "options": [
+          { "value": "clear", "label": "清除状态" },
+          { "value": "keep", "label": "显示已暂停，30 分钟后清除" }
+        ]
+      }
+    ]
+  }
+}
