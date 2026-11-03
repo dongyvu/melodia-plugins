@@ -1,0 +1,39 @@
+{
+  "format": 2,
+  "kind": "sandbox",
+  "id": "com.melodia.lastfm",
+  "name": "Last.fm 记录",
+  "version": "1.0.0",
+  "author": "Melodia",
+  "description": "把听歌记录同步到 Last.fm：正在播放与 scrobble，断网时先存起来稍后补交",
+  "apiVersion": "1.4",
+  "permissions": [
+    "network",
+    "playback.read",
+    "storage",
+    "ui.openUrl",
+    "ui.notify",
+    "netease.read"
+  ],
+  "network": {
+    "hosts": [
+      "ws.audioscrobbler.com"
+    ]
+  },
+  "contributes": {
+    "events": [
+      "songChanged",
+      "playStateChanged",
+      "progress"
+    ],
+    "pages": [
+      {
+        "id": "account",
+        "title": "Last.fm",
+        "icon": "chart",
+        "ui": "ui/account.json",
+        "placement": "settings"
+      }
+    ]
+  }
+}
