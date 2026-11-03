@@ -2,7 +2,9 @@
 
 [Melodia](https://github.com/rinchao0721/Melodia) 应用内「插件目录」读取的就是这里的 `index.json`。
 
-在线浏览：<https://rinchao0721.github.io/melodia-plugins/>
+- **在线浏览与下载**：<https://rinchao0721.github.io/melodia-plugins/>
+- **插件规范**：[plugin-format.md](https://github.com/rinchao0721/Melodia/blob/dev/docs/plugin-format.md)，写插件前先看这份
+- **目录格式**：[plugin-catalog.md](https://github.com/rinchao0721/Melodia/blob/dev/docs/plugin-catalog.md)
 
 ## 提交插件
 
@@ -30,7 +32,7 @@
 
 `id`、`version`、`kind` 要和包内 `plugin.json` 一致，否则应用会拒绝安装。`download.url` 只能是 https，`size` 是插件包的字节数；沙盒插件不超过 10MB，原生插件不超过 200MB。
 
-字段说明见 [plugin-catalog.md](https://github.com/rinchao0721/Melodia/blob/main/docs/plugin-catalog.md)。
+字段说明见 [plugin-catalog.md](https://github.com/rinchao0721/Melodia/blob/dev/docs/plugin-catalog.md)。
 
 计算哈希（Windows）：
 
