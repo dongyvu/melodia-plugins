@@ -1,0 +1,35 @@
+{
+  "type": "column", "padding": 16, "spacing": 12,
+  "children": [
+    { "type": "heading", "text": "Last.fm" },
+    { "type": "text", "text": "$state.status" },
+    { "type": "text", "text": "$state.error", "style": "caption", "visible": "$state.error" },
+    { "type": "loading", "visible": "$state.waiting" },
+    { "type": "row", "spacing": 8, "children": [
+      { "type": "button", "text": "登录", "action": "login", "visible": "$state.canLogin" },
+      { "type": "button", "text": "我已授权", "action": "checkAuth", "visible": "$state.waiting" },
+      { "type": "button", "text": "取消", "action": "cancelLogin", "visible": "$state.waiting" },
+      { "type": "button", "text": "立即补交", "action": "flush", "visible": "$state.pending" },
+      { "type": "button", "text": "退出登录", "action": "logout", "visible": "$state.loggedIn" }
+    ]},
+    { "type": "text", "text": "$state.queueText", "style": "caption" },
+
+    { "type": "text", "text": "API 账号", "style": "title" },
+    { "type": "input", "text": "API Key", "bind": "$state.apiKeyInput" },
+    { "type": "input", "text": "Shared Secret", "bind": "$state.apiSecretInput", "secret": true },
+    { "type": "text", "text": "$state.secretHint", "style": "caption", "visible": "$state.secretHint" },
+    { "type": "row", "spacing": 8, "children": [
+      { "type": "button", "text": "保存", "action": "save" },
+      { "type": "button", "text": "申请 API 账号", "action": "openApiPage" }
+    ]},
+    { "type": "text", "text": "$state.hint", "style": "caption", "visible": "$state.hint" },
+
+    { "type": "text", "text": "记录", "style": "title" },
+    { "type": "toggle", "text": "记录听歌（scrobble）", "bind": "$state.scrobble", "action": "setScrobble" },
+    { "type": "toggle", "text": "更新正在播放", "bind": "$state.nowPlaying", "action": "setNowPlaying" },
+    { "type": "select", "text": "多位歌手时", "bind": "$state.artistMode", "action": "setArtistMode", "options": [
+      { "value": "first", "label": "只提交第一位" },
+      { "value": "all", "label": "全部提交" }
+    ]}
+  ]
+}
