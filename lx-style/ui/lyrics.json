@@ -1,0 +1,124 @@
+{
+  "styles": {
+    "accent": {
+      "contentColor": {
+        "light": "#2F9E63",
+        "dark": "#4DAF7C"
+      }
+    },
+    "muted": {
+      "contentColor": "textTertiary"
+    }
+  },
+  "layout": {
+    "type": "column",
+    "padding": [
+      0,
+      16,
+      12,
+      16
+    ],
+    "children": [
+      {
+        "type": "row",
+        "align": "center",
+        "spacing": 8,
+        "height": 56,
+        "autoHide": true,
+        "children": [
+          {
+            "type": "collapseButton"
+          },
+          {
+            "type": "songInfo",
+            "weight": 1,
+            "size": "small"
+          },
+          {
+            "type": "actions",
+            "buttons": [
+              "lyricsSettings"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "lyricsView",
+        "weight": 1
+      },
+      {
+        "type": "column",
+        "autoHide": true,
+        "children": [
+          {
+            "type": "progress",
+            "showTime": false,
+            "class": "accent"
+          },
+          {
+            "type": "row",
+            "arrange": "spaceBetween",
+            "children": [
+              {
+                "type": "time",
+                "format": "position",
+                "style": "caption",
+                "class": "muted"
+              },
+              {
+                "type": "time",
+                "format": "duration",
+                "style": "caption",
+                "class": "muted"
+              }
+            ]
+          },
+          {
+            "type": "row",
+            "arrange": "spaceEvenly",
+            "align": "center",
+            "padding": [
+              8,
+              0
+            ],
+            "children": [
+              {
+                "type": "controls",
+                "buttons": [
+                  "playMode"
+                ]
+              },
+              {
+                "type": "controls",
+                "buttons": [
+                  "previous"
+                ],
+                "variant": "plain"
+              },
+              {
+                "type": "controls",
+                "buttons": [
+                  "playPause"
+                ],
+                "variant": "plain"
+              },
+              {
+                "type": "controls",
+                "buttons": [
+                  "next"
+                ],
+                "variant": "plain"
+              },
+              {
+                "type": "actions",
+                "buttons": [
+                  "queue"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
