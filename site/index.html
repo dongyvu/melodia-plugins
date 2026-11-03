@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Melodia 插件目录</title>
+<meta name="description" content="浏览并下载 Melodia 插件">
+<style>
+:root {
+  color-scheme: dark;
+  --canvas: #000000;
+  --pane: #121212;
+  --field: #1f1f1f;
+  --surface: #2a2a2a;
+  --surface-strong: #3e3e3e;
+  --text: #ffffff;
+  --text-2: #b3b3b3;
+  --text-3: #8a8a8a;
+  --accent: #c20c0c;
+  --on-accent: #ffffff;
+  --warn-bg: rgba(194, 12, 12, .24);
+  --warn-text: #ff9d9d;
+  --ease: cubic-bezier(.23, 1, .32, 1);
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    --canvas: #ececec;
+    --pane: #ffffff;
+    --field: #f6f6f6;
+    --surface: #f0f0f0;
+    --surface-strong: #e3e3e3;
+    --text: #121212;
+    --text-2: #5e5e5e;
+    --text-3: #757575;
+    --accent: #d3261b;
+    --warn-bg: rgba(211, 38, 27, .1);
+    --warn-text: #b3200f;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--text);
+  font-family: -apple-system, "Segoe UI", "Microsoft YaHei UI", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+a { color: inherit; }
+button, input { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; text-align: left; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+svg { display: block; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+[hidden] { display: none !important; }
+
+.page { width: min(100%, 980px); margin: 0 auto; padding: 16px; }
+.pane { background: var(--pane); border-radius: 12px; padding: 28px; }
+
+.hero { display: flex; gap: 24px; align-items: flex-end; }
+.cover {
+  flex: none; width: 148px; height: 148px; border-radius: 8px; background: var(--accent); color: var(--on-accent);
+  display: flex; align-items: flex-end; justify-content: center; gap: 7px; padding: 36px 24px;
+  animation: settle 420ms var(--ease) backwards;
+}
+.cover i, .eq i { flex: 1; height: 100%; background: currentColor; border-radius: 3px; transform-origin: bottom; animation: pulse 1.2s ease-in-out infinite; }
+.cover i:nth-child(1) { animation-duration: 1.15s; animation-delay: -.2s; }
+.cover i:nth-child(2) { animation-duration: 1.45s; animation-delay: -.9s; }
+.cover i:nth-child(3) { animation-duration: .95s; animation-delay: -.5s; }
+.cover i:nth-child(4) { animation-duration: 1.3s; animation-delay: -1.1s; }
+.cover i:nth-child(5) { animation-duration: 1.6s; animation-delay: -.7s; }
+.hero-text { animation: rise 420ms 60ms var(--ease) backwards; }
+.eyebrow { margin: 0; color: var(--text-2); font-size: 13px; }
+h1 { margin: 4px 0 8px; font-size: clamp(30px, 6vw, 46px); line-height: 1.15; font-weight: 800; letter-spacing: -.01em; }
+.hero-meta { margin: 0; min-height: 21px; color: var(--text-2); font-size: 14px; }
+
+.tools {
+  position: sticky; top: 0; z-index: 2; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  margin: 24px -28px 0; padding: 12px 28px; background: var(--pane);
+}
+.search { flex: 1 1 240px; position: relative; color: var(--text-3); }
+.search svg { position: absolute; left: 13px; top: 10px; width: 18px; height: 18px; }
+.search input {
+  width: 100%; height: 38px; padding: 0 14px 0 39px; border: 0; border-radius: 19px;
+  background: var(--surface); color: var(--text); outline-offset: 0;
+}
+.search input::placeholder { color: var(--text-3); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  padding: 7px 13px; border-radius: 16px; background: var(--surface); color: var(--text-2); font-size: 13px;
+  transition: background-color 150ms ease, color 150ms ease, transform 120ms var(--ease);
+}
+.chip:active, .button:active { transform: scale(.97); }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+
+.head, .row {
+  display: grid; grid-template-columns: 36px minmax(0, 1fr) 72px 76px 44px; gap: 12px; align-items: center;
+}
+.head { padding: 12px 8px 8px; color: var(--text-3); font-size: 12px; border-bottom: 1px solid var(--surface); margin-bottom: 6px; }
+.item { animation: rise 420ms var(--ease) backwards; animation-delay: calc(120ms + var(--order, 0) * 40ms); }
+.row { width: 100%; padding: 8px; border-radius: 6px; cursor: pointer; transition: background-color 150ms ease; }
+.item.open .row { background: var(--field); }
+
+.index { position: relative; display: block; height: 20px; color: var(--text-3); font-size: 14px; font-variant-numeric: tabular-nums; }
+.index > * {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  transition: opacity 150ms ease, transform 200ms var(--ease);
+}
+.index .chevron, .index .eq { opacity: 0; }
+.index .chevron { transform: translateY(-3px); }
+.index .chevron svg { width: 16px; height: 16px; }
+.index .eq { inset: 3px 11px; gap: 2px; align-items: flex-end; color: var(--accent); transform: scaleY(.6); transform-origin: bottom; }
+.eq i { border-radius: 1px; animation-play-state: paused; }
+.eq i:nth-child(1) { animation-duration: .95s; animation-delay: -.3s; }
+.eq i:nth-child(2) { animation-duration: 1.25s; animation-delay: -.8s; }
+.eq i:nth-child(3) { animation-duration: 1.05s; animation-delay: -.5s; }
+.item.open .index .number, .item.open .index .chevron { opacity: 0; }
+.item.open .index .eq { opacity: 1; transform: none; }
+.item.open .eq i { animation-play-state: running; }
+
+.main { display: block; width: 100%; min-width: 0; }
+.name { display: flex; align-items: center; gap: 8px; min-width: 0; font-size: 15px; font-weight: 600; }
+.name b { font: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sub { color: var(--text-2); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.num { color: var(--text-2); font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mobile-meta { display: none; }
+.tag { flex: none; padding: 1px 6px; border-radius: 4px; background: var(--surface); color: var(--text-2); font-size: 11px; font-weight: 400; }
+.tag.native { background: var(--warn-bg); color: var(--warn-text); }
+.get {
+  width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%;
+  color: var(--text-2); text-decoration: none;
+  transition: background-color 150ms ease, color 150ms ease, transform 120ms var(--ease);
+}
+.get svg { width: 20px; height: 20px; }
+.get .arrow { transition: transform 200ms var(--ease); }
+.get:active { transform: scale(.92); }
+
+.fold { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 200ms var(--ease); }
+.item.open .fold { grid-template-rows: 1fr; transition-duration: 280ms; }
+.fold-inner {
+  min-height: 0; overflow: hidden; visibility: hidden; opacity: 0;
+  transition: opacity 120ms ease, visibility 0s linear 200ms;
+}
+.item.open .fold-inner { visibility: visible; opacity: 1; transition: opacity 220ms ease 60ms, visibility 0s; }
+.detail { padding: 10px 8px 18px 56px; color: var(--text-2); font-size: 14px; }
+.detail p { margin: 0 0 10px; }
+.warning { padding: 8px 12px; border-radius: 6px; background: var(--warn-bg); color: var(--warn-text); }
+.facts { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 4px 12px; margin: 0 0 12px; }
+.facts dt { color: var(--text-3); }
+.facts dd { margin: 0; overflow-wrap: anywhere; }
+.facts ul { margin: 0; padding: 0; list-style: none; }
+.hash { margin: 0 0 14px; color: var(--text-3); font-size: 13px; }
+.hash summary { cursor: pointer; width: fit-content; }
+.hash code { display: block; margin-top: 4px; overflow-wrap: anywhere; font-size: 12px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.button {
+  display: inline-block; padding: 7px 16px; border-radius: 18px; background: var(--surface); color: var(--text);
+  text-decoration: none; font-size: 14px;
+  transition: background-color 150ms ease, transform 120ms var(--ease);
+}
+.button.primary { background: var(--accent); color: var(--on-accent); }
+
+.ghost { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; padding: 12px 8px; animation: breathe 1s ease-in-out infinite alternate; }
+.ghost i { height: 36px; border-radius: 6px; background: var(--surface); }
+.state { padding: 56px 16px; text-align: center; color: var(--text-2); animation: rise 240ms var(--ease) backwards; }
+.state p { margin: 0 0 12px; }
+.foot { padding: 16px 8px 8px; color: var(--text-3); font-size: 13px; }
+.foot a { color: var(--text-2); }
+
+@keyframes pulse {
+  0%, 100% { transform: scaleY(.35); }
+  30% { transform: scaleY(1); }
+  55% { transform: scaleY(.55); }
+  80% { transform: scaleY(.85); }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+@keyframes settle { from { opacity: 0; transform: scale(.96); } }
+@keyframes breathe { from { opacity: .55; } to { opacity: 1; } }
+
+@media (hover: hover) and (pointer: fine) {
+  .chip:hover { background: var(--surface-strong); }
+  .chip[aria-pressed="true"]:hover { background: var(--accent); }
+  .button:hover { background: var(--surface-strong); }
+  .button.primary:hover { background: var(--accent); }
+  .item:hover .row { background: var(--field); }
+  .item:not(.open):hover .number { opacity: 0; transform: translateY(3px); }
+  .item:not(.open):hover .chevron { opacity: 1; transform: none; }
+  .get:hover { background: var(--accent); color: var(--on-accent); }
+  .get:hover .arrow { transform: translateY(2px); }
+}
+@media (max-width: 640px) {
+  .pane { padding: 18px 14px; }
+  .hero { gap: 14px; align-items: center; }
+  .cover { width: 88px; height: 88px; padding: 22px 15px; gap: 4px; }
+  .tools { margin: 16px -14px 0; padding: 10px 14px; }
+  .head { display: none; }
+  .row { grid-template-columns: 26px minmax(0, 1fr) 40px; gap: 8px; padding: 8px 2px; }
+  .row .num { display: none; }
+  .index .eq { inset: 3px 6px; }
+  .mobile-meta { display: inline; }
+  .detail { padding-left: 36px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cover, .hero-text, .item, .state, .ghost { animation: none; }
+  .cover i, .eq i { animation: none; }
+  .cover i:nth-child(odd), .eq i:nth-child(odd) { transform: scaleY(.55); }
+  .fold, .item.open .fold { transition: none; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="pane">
+    <header class="hero">
+      <div class="cover" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="hero-text">
+        <p class="eyebrow">Melodia 插件目录</p>
+        <h1>给 Melodia 加点新东西</h1>
+        <p class="hero-meta" id="meta"></p>
+      </div>
+    </header>
+    <div class="tools">
+      <label class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="search" type="search" placeholder="搜索名称、作者或说明" aria-label="搜索插件">
+      </label>
+      <div class="chips" id="filters"></div>
+    </div>
+    <div class="head" id="head" hidden>
+      <span class="index"><span class="number">#</span></span><span>插件</span><span>版本</span><span>大小</span><span></span>
+    </div>
+    <div id="list"></div>
+    <div id="status" aria-live="polite"></div>
+  </section>
+  <footer class="foot">
+    下载后打开 Melodia 的设置，在插件里导入。想收录自己的插件？看
+    <a href="https://github.com/rinchao0721/melodia-plugins">提交说明</a>。
+  </footer>
+</main>
+
+<script>
+const PERMISSIONS = {
+  network: '访问网络',
+  'playback.read': '读取当前播放的歌曲与进度',
+  'playback.control': '控制播放：播放、暂停、切歌、加入队列',
+  storage: '保存插件自己的数据',
+  audioSource: '作为音源提供播放链接',
+  lyricsSource: '作为歌词源提供歌词',
+  'ui.notify': '显示应用内提示',
+  'library.read': '读取你的歌单与红心列表',
+  contentSource: '提供歌曲、歌单与搜索结果',
+  'netease.read': '以你的账号读取网易云内容',
+  'netease.write': '修改你的网易云账号：红心、歌单、收藏与关注',
+  native: '在主进程运行原生代码，不受其他权限限制'
+};
+const PLATFORMS = { desktop: '桌面', android: 'Android' };
+const FILTERS = [
+  { key: 'all', label: '全部', test: () => true },
+  { key: 'sandbox', label: '沙盒', test: plugin => !isNative(plugin) },
+  { key: 'native', label: '原生', test: plugin => isNative(plugin) },
+  { key: 'desktop', label: '桌面', test: plugin => supports(plugin, 'desktop') },
+  { key: 'android', label: 'Android', test: plugin => supports(plugin, 'android') }
+];
+const PLUGIN_ID = /^[a-z0-9][a-z0-9._-]*$/i;
+const SHA256 = /^[0-9a-f]{64}$/;
+const MAX_NATIVE_BYTES = 200 * 1024 * 1024;
+const MAX_SANDBOX_BYTES = 10 * 1024 * 1024;
+const MAX_STAGGERED_ROWS = 10;
+const GHOST_ROWS = 3;
+const MOVE_MS = 240;
+
+const state = { query: '', filter: 'all', entries: [] };
+const $ = id => document.getElementById(id);
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+function isNative(plugin) { return plugin.kind === 'native'; }
+function supports(plugin, platform) {
+  if (platform === 'android' && isNative(plugin)) return false;
+  const platforms = plugin.platforms ?? [];
+  return platforms.length === 0 || platforms.includes(platform);
+}
+function isHttps(url) {
+  try { return new URL(url).protocol === 'https:'; } catch { return false; }
+}
+// 与应用的目录解析规则一致，不合规的条目直接跳过
+function isValid(plugin) {
+  const download = plugin?.download;
+  if (!download || typeof plugin.name !== 'string' || typeof plugin.version !== 'string') return false;
+  const limit = isNative(plugin) ? MAX_NATIVE_BYTES : MAX_SANDBOX_BYTES;
+  return PLUGIN_ID.test(plugin.id ?? '')
+    && plugin.name.trim() !== ''
+    && plugin.version.trim() !== ''
+    && ['sandbox', 'native'].includes(plugin.kind ?? 'sandbox')
+    && isHttps(download.url)
+    && SHA256.test(download.sha256 ?? '')
+    && Number.isFinite(download.size) && download.size >= 1 && download.size <= limit
+    && (!isNative(plugin) || isHttps(plugin.source));
+}
+function formatSize(bytes) {
+  if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+}
+function el(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+function icon(path) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.innerHTML = path;
+  return svg;
+}
+
+function detail(plugin) {
+  const box = el('div', 'detail');
+  if (isNative(plugin)) {
+    box.append(el('p', 'warning', '原生插件在主进程运行，等同于运行任意程序。只安装你信任的插件，安装前先在应用里开启「允许原生插件」。'));
+  }
+  const facts = el('dl', 'facts');
+  const add = (label, value) => {
+    const content = el('dd');
+    content.append(value);
+    facts.append(el('dt', '', label), content);
+  };
+  add('平台', (plugin.platforms?.length ? plugin.platforms.map(key => PLATFORMS[key] ?? key) : ['全部平台']).join('、'));
+  if (plugin.minAppVersion) add('应用版本', `${plugin.minAppVersion} 及以上`);
+  const permissions = el('ul');
+  if (plugin.permissions?.length) {
+    plugin.permissions.forEach(key => permissions.append(el('li', '', PERMISSIONS[key] ?? key)));
+  } else {
+    permissions.append(el('li', '', '不需要权限'));
+  }
+  add('权限', permissions);
+  box.append(facts);
+
+  const hash = el('details', 'hash');
+  hash.append(el('summary', '', '校验值（SHA-256）'), el('code', '', plugin.download.sha256));
+  box.append(hash);
+
+  const actions = el('div', 'actions');
+  const download = el('a', 'button primary', `下载 ${formatSize(plugin.download.size)}`);
+  download.href = plugin.download.url;
+  actions.append(download);
+  if (isHttps(plugin.source)) {
+    const source = el('a', 'button', '查看源码');
+    source.href = plugin.source;
+    actions.append(source);
+  }
+  box.append(actions);
+  return box;
+}
+
+function setOpen(entry, open) {
+  entry.node.classList.toggle('open', open);
+  entry.trigger.setAttribute('aria-expanded', String(open));
+}
+
+function createEntry(plugin, order) {
+  const node = el('article', 'item');
+  node.style.setProperty('--order', Math.min(order, MAX_STAGGERED_ROWS));
+
+  const index = el('span', 'index');
+  const number = el('span', 'number', String(order + 1));
+  const chevron = el('span', 'chevron');
+  chevron.append(icon('<path d="m6 9 6 6 6-6"/>'));
+  const eq = el('span', 'eq');
+  eq.setAttribute('aria-hidden', 'true');
+  eq.append(el('i'), el('i'), el('i'));
+  index.append(number, chevron, eq);
+
+  const trigger = el('button', 'main');
+  trigger.type = 'button';
+  const name = el('span', 'name');
+  name.append(el('b', '', plugin.name), isNative(plugin) ? el('span', 'tag native', '原生') : el('span', 'tag', '沙盒'));
+  const summary = [plugin.author, plugin.description].filter(Boolean).join(' · ');
+  const sub = el('span', 'sub', summary);
+  sub.style.display = 'block';
+  sub.prepend(el('span', 'mobile-meta', `${plugin.version} · ${formatSize(plugin.download.size)}${summary ? ' · ' : ''}`));
+  trigger.append(name, sub);
+
+  const link = el('a', 'get');
+  link.href = plugin.download.url;
+  link.title = `下载 ${formatSize(plugin.download.size)}`;
+  link.setAttribute('aria-label', `下载 ${plugin.name}`);
+  link.append(icon('<path class="arrow" d="M12 4v11m-5-4 5 5 5-5"/><path d="M5 20h14"/>'));
+
+  const row = el('div', 'row');
+  row.append(index, trigger, el('span', 'num', plugin.version), el('span', 'num', formatSize(plugin.download.size)), link);
+
+  const inner = el('div', 'fold-inner');
+  inner.append(detail(plugin));
+  const fold = el('div', 'fold');
+  fold.append(inner);
+  node.append(row, fold);
+
+  const entry = { plugin, node, trigger, number };
+  row.addEventListener('click', event => {
+    if (event.target.closest('a')) return;
+    const open = !node.classList.contains('open');
+    state.entries.forEach(other => { if (other !== entry) setOpen(other, false); });
+    setOpen(entry, open);
+  });
+  setOpen(entry, false);
+  return entry;
+}
+
+function matches(plugin) {
+  const keyword = state.query.trim().toLowerCase();
+  const filter = FILTERS.find(item => item.key === state.filter);
+  return filter.test(plugin) && (!keyword
+    || [plugin.name, plugin.id, plugin.author, plugin.description].some(text => text?.toLowerCase().includes(keyword)));
+}
+
+// 留下的行滑到新位置，新出现的行淡入；搜索是键盘操作，结果直接出现
+function applyFilter(animate) {
+  const moving = animate && !reducedMotion.matches;
+  const before = new Map();
+  if (moving) {
+    state.entries.forEach(entry => {
+      if (!entry.node.hidden) before.set(entry, entry.node.getBoundingClientRect().top + window.scrollY);
+    });
+  }
+  let shown = 0;
+  state.entries.forEach(entry => {
+    const match = matches(entry.plugin);
+    entry.node.hidden = !match;
+    // 入场动画只播一次，之后隐藏再显示不重播
+    entry.node.style.animation = 'none';
+    if (match) entry.number.textContent = String(++shown);
+    else setOpen(entry, false);
+  });
+  $('head').hidden = shown === 0;
+  if (shown === 0) {
+    renderState('没有匹配的插件。', '清除搜索和筛选', () => {
+      state.query = '';
+      state.filter = 'all';
+      $('search').value = '';
+      renderFilters();
+      applyFilter(true);
+    });
+  } else {
+    $('status').replaceChildren();
+  }
+  if (!moving) return;
+  state.entries.filter(entry => !entry.node.hidden).forEach(entry => {
+    const from = before.get(entry);
+    if (from === undefined) {
+      entry.node.animate(
+        [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }],
+        { duration: MOVE_MS, easing: 'cubic-bezier(.23, 1, .32, 1)' }
+      );
+      return;
+    }
+    const delta = from - (entry.node.getBoundingClientRect().top + window.scrollY);
+    if (delta !== 0) {
+      entry.node.animate(
+        [{ transform: `translateY(${delta}px)` }, { transform: 'none' }],
+        { duration: MOVE_MS, easing: 'cubic-bezier(.23, 1, .32, 1)' }
+      );
+    }
+  });
+}
+
+function renderFilters() {
+  $('filters').replaceChildren(...FILTERS.map(item => {
+    const chip = el('button', 'chip', item.label);
+    chip.type = 'button';
+    chip.setAttribute('aria-pressed', String(item.key === state.filter));
+    chip.addEventListener('click', () => {
+      if (state.filter === item.key) return;
+      state.filter = item.key;
+      $('filters').querySelectorAll('.chip').forEach((other, index) => {
+        other.setAttribute('aria-pressed', String(FILTERS[index].key === item.key));
+      });
+      applyFilter(true);
+    });
+    return chip;
+  }));
+}
+
+function renderState(message, label, action) {
+  const box = el('div', 'state');
+  box.append(el('p', '', message));
+  if (label) {
+    const button = el('button', 'button', label);
+    button.type = 'button';
+    button.addEventListener('click', action);
+    box.append(button);
+  }
+  $('status').replaceChildren(box);
+}
+
+function renderLoading() {
+  $('head').hidden = true;
+  $('list').replaceChildren();
+  $('status').replaceChildren(...Array.from({ length: GHOST_ROWS }, () => {
+    const ghost = el('div', 'ghost');
+    ghost.append(el('i'), el('i'));
+    return ghost;
+  }));
+}
+
+async function load() {
+  renderLoading();
+  try {
+    const response = await fetch('./index.json', { cache: 'no-cache' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const catalog = await response.json();
+    if (catalog.format !== 1 || !Array.isArray(catalog.plugins)) throw new Error('目录格式无效');
+    const plugins = catalog.plugins.filter(isValid);
+    state.entries = plugins.map(createEntry);
+    $('meta').textContent = [
+      `${plugins.length} 个插件`,
+      typeof catalog.updatedAt === 'string' ? `更新于 ${catalog.updatedAt}` : null
+    ].filter(Boolean).join(' · ');
+    $('status').replaceChildren();
+    if (plugins.length === 0) {
+      renderState('还没有收录插件。');
+      return;
+    }
+    $('head').hidden = false;
+    $('list').replaceChildren(...state.entries.map(entry => entry.node));
+  } catch (error) {
+    console.warn('读取插件目录失败', error);
+    $('status').replaceChildren();
+    renderState('读取插件目录失败，检查网络后重试。', '重试', load);
+  }
+}
+
+$('search').addEventListener('input', event => {
+  state.query = event.target.value;
+  applyFilter(false);
+});
+renderFilters();
+load();
+</script>
+</body>
+</html>

@@ -2,6 +2,8 @@
 
 [Melodia](https://github.com/rinchao0721/Melodia) 应用内「插件目录」读取的就是这里的 `index.json`。
 
+在线浏览：<https://rinchao0721.github.io/melodia-plugins/>
+
 ## 提交插件
 
 向本仓库发 PR，在 `index.json` 的 `plugins` 里加一条：
