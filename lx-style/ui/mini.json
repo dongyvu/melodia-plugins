@@ -1,0 +1,72 @@
+{
+  "frame": {
+    "radius": [
+      6,
+      6,
+      0,
+      0
+    ],
+    "border": false
+  },
+  "layout": {
+    "type": "column",
+    "height": 60,
+    "children": [
+      {
+        "type": "row",
+        "weight": 1,
+        "align": "center",
+        "spacing": 10,
+        "padding": [
+          0,
+          6,
+          0,
+          8
+        ],
+        "children": [
+          {
+            "type": "cover",
+            "shape": "rounded",
+            "radius": 2,
+            "maxSize": 44
+          },
+          {
+            "type": "column",
+            "weight": 1,
+            "children": [
+              {
+                "type": "songTitle"
+              },
+              {
+                "type": "row",
+                "align": "center",
+                "spacing": 6,
+                "children": [
+                  {
+                    "type": "miniLyric",
+                    "weight": 1
+                  },
+                  {
+                    "type": "time",
+                    "format": "both",
+                    "style": "caption"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "controls",
+            "buttons": [
+              "playPause",
+              "next"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "progress"
+      }
+    ]
+  }
+}

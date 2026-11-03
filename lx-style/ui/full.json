@@ -1,0 +1,297 @@
+{
+  "frame": {
+    "header": "none",
+    "cards": false
+  },
+  "styles": {
+    "accent": {
+      "contentColor": {
+        "light": "#2F9E63",
+        "dark": "#4DAF7C"
+      }
+    },
+    "muted": {
+      "contentColor": "textTertiary"
+    },
+    "cover": {
+      "shape": "rounded",
+      "radius": 2,
+      "elevation": 6,
+      "animation": {
+        "preset": "songChange",
+        "effect": "zoom"
+      },
+      "onDoubleTap": "toggleLike"
+    }
+  },
+  "layout": {
+    "type": "column",
+    "padding": [
+      0,
+      16,
+      12,
+      16
+    ],
+    "children": [
+      {
+        "type": "row",
+        "align": "center",
+        "spacing": 8,
+        "height": 56,
+        "children": [
+          {
+            "type": "collapseButton"
+          },
+          {
+            "type": "songInfo",
+            "weight": 1,
+            "size": "small"
+          },
+          {
+            "type": "moreButton"
+          }
+        ]
+      },
+      {
+        "type": "pager",
+        "weight": 1,
+        "indicator": "dots",
+        "children": [
+          {
+            "type": "box",
+            "align": "center",
+            "padding": [
+              8,
+              24
+            ],
+            "children": [
+              {
+                "type": "cover",
+                "class": "cover",
+                "maxSize": 360,
+                "onTap": "pagerNext"
+              }
+            ]
+          },
+          {
+            "type": "lyricsView"
+          }
+        ]
+      },
+      {
+        "type": "progress",
+        "showTime": false,
+        "class": "accent"
+      },
+      {
+        "type": "row",
+        "align": "center",
+        "spacing": 8,
+        "children": [
+          {
+            "type": "time",
+            "format": "position",
+            "style": "caption",
+            "class": "muted"
+          },
+          {
+            "type": "miniLyric",
+            "weight": 1,
+            "class": "accent",
+            "textAlign": "center"
+          },
+          {
+            "type": "time",
+            "format": "duration",
+            "style": "caption",
+            "class": "muted"
+          }
+        ]
+      },
+      {
+        "type": "row",
+        "arrange": "spaceEvenly",
+        "align": "center",
+        "children": [
+          {
+            "type": "controls",
+            "buttons": [
+              "previous"
+            ],
+            "variant": "plain",
+            "size": "large"
+          },
+          {
+            "type": "controls",
+            "buttons": [
+              "playPause"
+            ],
+            "variant": "plain",
+            "size": "large"
+          },
+          {
+            "type": "controls",
+            "buttons": [
+              "next"
+            ],
+            "variant": "plain",
+            "size": "large"
+          }
+        ],
+        "padding": [
+          12,
+          0
+        ]
+      },
+      {
+        "type": "row",
+        "arrange": "spaceEvenly",
+        "align": "center",
+        "children": [
+          {
+            "type": "likeButton"
+          },
+          {
+            "type": "controls",
+            "buttons": [
+              "playMode"
+            ]
+          },
+          {
+            "type": "actions",
+            "buttons": [
+              "comments"
+            ]
+          },
+          {
+            "type": "actions",
+            "buttons": [
+              "sleepTimer"
+            ]
+          },
+          {
+            "type": "actions",
+            "buttons": [
+              "queue"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "variants": [
+    {
+      "when": {
+        "orientation": "landscape"
+      },
+      "layout": {
+        "type": "row",
+        "padding": [
+          0,
+          16,
+          8,
+          16
+        ],
+        "spacing": 24,
+        "children": [
+          {
+            "type": "column",
+            "width": "45%",
+            "children": [
+              {
+                "type": "row",
+                "align": "center",
+                "spacing": 8,
+                "height": 48,
+                "children": [
+                  {
+                    "type": "collapseButton"
+                  },
+                  {
+                    "type": "songInfo",
+                    "weight": 1,
+                    "size": "small"
+                  },
+                  {
+                    "type": "moreButton"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "weight": 1,
+                "align": "center",
+                "padding": 8,
+                "children": [
+                  {
+                    "type": "cover",
+                    "class": "cover",
+                    "weight": 1
+                  }
+                ]
+              },
+              {
+                "type": "row",
+                "arrange": "spaceEvenly",
+                "align": "center",
+                "children": [
+                  {
+                    "type": "controls",
+                    "buttons": [
+                      "previous"
+                    ],
+                    "variant": "plain",
+                    "size": "medium"
+                  },
+                  {
+                    "type": "controls",
+                    "buttons": [
+                      "playPause"
+                    ],
+                    "variant": "plain",
+                    "size": "medium"
+                  },
+                  {
+                    "type": "controls",
+                    "buttons": [
+                      "next"
+                    ],
+                    "variant": "plain",
+                    "size": "medium"
+                  }
+                ]
+              },
+              {
+                "type": "progress",
+                "showTime": false,
+                "class": "accent"
+              },
+              {
+                "type": "row",
+                "arrange": "spaceBetween",
+                "children": [
+                  {
+                    "type": "time",
+                    "format": "position",
+                    "style": "caption",
+                    "class": "muted"
+                  },
+                  {
+                    "type": "time",
+                    "format": "duration",
+                    "style": "caption",
+                    "class": "muted"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "lyricsView",
+            "weight": 1
+          }
+        ]
+      }
+    }
+  ]
+}
