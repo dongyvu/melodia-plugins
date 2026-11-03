@@ -1,5 +1,23 @@
 {
   "format": 1,
-  "updatedAt": "2026-11-02",
-  "plugins": []
+  "updatedAt": "2026-11-03",
+  "plugins": [
+    {
+      "id": "com.melodia.discordpresence",
+      "name": "Discord 听歌状态",
+      "version": "1.0.0",
+      "kind": "native",
+      "author": "Melodia",
+      "description": "在 Discord 上显示正在播放的歌曲",
+      "platforms": ["desktop"],
+      "apiVersion": "1.0",
+      "permissions": ["playback.read"],
+      "source": "https://github.com/rinchao0721/melodia-plugins/tree/discord-presence-v1.0.0/discord-presence",
+      "download": {
+        "url": "https://github.com/rinchao0721/melodia-plugins/releases/download/discord-presence-v1.0.0/discord-presence.melodiaplugin",
+        "sha256": "ff696a8af78959e95069c7e60b6027aea7bc5e9e67dd4c6b12a59c15444db89a",
+        "size": 34824
+      }
+    }
+  ]
 }
