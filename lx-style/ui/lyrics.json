@@ -1,13 +1,10 @@
 {
   "styles": {
     "accent": {
-      "contentColor": {
-        "light": "#2F9E63",
-        "dark": "#4DAF7C"
-      }
+      "contentColor": "accent"
     },
     "muted": {
-      "contentColor": "textTertiary"
+      "contentColor": "textSecondary"
     }
   },
   "layout": {

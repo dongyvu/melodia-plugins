@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "updatedAt": "2026-11-04",
+  "updatedAt": "2026-11-06",
   "plugins": [
     {
       "id": "com.melodia.discordpresence",
@@ -39,18 +39,18 @@
     {
       "id": "com.melodia.lxstyle",
       "name": "LX 风格播放页",
-      "version": "0.5.1",
+      "version": "0.5.2",
       "kind": "sandbox",
       "author": "Melodia",
-      "description": "仿 LX Music 移动版的播放页：封面与歌词左右分页、无底色控制键、绿色强调色的进度与当前歌词",
+      "description": "仿 LX Music 移动版的播放页：封面与歌词左右分页、无底色控制键、跟随主题强调色的进度与当前歌词",
       "platforms": ["android"],
       "apiVersion": "1.9",
       "permissions": [],
-      "source": "https://github.com/rinchao0721/melodia-plugins/tree/lx-style-v0.5.1/lx-style",
+      "source": "https://github.com/rinchao0721/melodia-plugins/tree/lx-style-v0.5.2/lx-style",
       "download": {
-        "url": "https://github.com/rinchao0721/melodia-plugins/releases/download/lx-style-v0.5.1/lx-style.melodiaplugin",
-        "sha256": "76af7be56f0dc7e44306a659ca86092ee484aadbed5b49718e964dd4763ecff1",
-        "size": 3412
+        "url": "https://github.com/rinchao0721/melodia-plugins/releases/download/lx-style-v0.5.2/lx-style.melodiaplugin",
+        "sha256": "d08c0f5b7b495930ac1668b5dc6fd1e2c0197fcca8f4ca8337dc49e7d5ddbf99",
+        "size": 3370
       }
     }
   ]

@@ -4,13 +4,10 @@
   },
   "styles": {
     "accent": {
-      "contentColor": {
-        "light": "#2F9E63",
-        "dark": "#4DAF7C"
-      }
+      "contentColor": "accent"
     },
     "muted": {
-      "contentColor": "textTertiary"
+      "contentColor": "textSecondary"
     },
     "cover": {
       "shape": "rounded",
@@ -68,7 +65,8 @@
             "type": "miniLyric",
             "weight": 1,
             "class": "accent",
-            "textAlign": "center"
+            "textAlign": "center",
+            "marquee": true
           },
           {
             "type": "time",
