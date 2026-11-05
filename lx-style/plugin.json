@@ -3,9 +3,9 @@
   "kind": "sandbox",
   "id": "com.melodia.lxstyle",
   "name": "LX 风格播放页",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "author": "Melodia",
-  "description": "仿 LX Music 移动版的播放页：封面与歌词左右分页、无底色控制键、绿色强调色的进度与当前歌词",
+  "description": "仿 LX Music 移动版的播放页：封面与歌词左右分页、无底色控制键、跟随主题强调色的进度与当前歌词",
   "apiVersion": "1.9",
   "platforms": [
     "android"
