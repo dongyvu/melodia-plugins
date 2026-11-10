@@ -64,6 +64,16 @@
       "apiVersion": "1.10",
       "permissions": [],
       "source": "https://github.com/rinchao0721/melodia-plugins/tree/fluid-player-v1.0.0/fluid-player",
+      "screenshots": [
+        {
+          "url": "https://raw.githubusercontent.com/dongyvu/melodia-plugins/bc56e7231e7d2efd9f71ae606a35f67c6d638d05/fluid-pr-player.jpg",
+          "label": "播放页"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/dongyvu/melodia-plugins/bc56e7231e7d2efd9f71ae606a35f67c6d638d05/fluid-pr-lyrics.jpg",
+          "label": "全屏歌词页"
+        }
+      ],
       "download": {
         "url": "https://github.com/rinchao0721/melodia-plugins/releases/download/fluid-player-v1.0.0/fluid-player.melodiaplugin",
         "sha256": "a6f9a5116bbb26a15662dd6563afbb72839f4d8654c2b08529cf6c7df359cca0",
