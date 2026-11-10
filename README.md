@@ -22,6 +22,9 @@
   "apiVersion": "1.0",
   "permissions": ["storage"],
   "source": "https://github.com/作者/仓库",
+  "screenshots": [
+    { "url": "https://example.com/shot-1.png", "label": "播放页" }
+  ],
   "download": {
     "url": "https://github.com/作者/仓库/releases/download/v1.0.0/hello.melodiaplugin",
     "sha256": "64 位小写十六进制",
@@ -30,7 +33,7 @@
 }
 ```
 
-`id`、`version`、`kind` 要和包内 `plugin.json` 一致，否则应用会拒绝安装。`download.url` 只能是 https，`size` 是插件包的字节数；沙盒插件不超过 10MB，原生插件不超过 200MB。
+`id`、`version`、`kind` 要和包内 `plugin.json` 一致，否则应用会拒绝安装。`download.url` 只能是 https，`size` 是插件包的字节数；沙盒插件不超过 10MB，原生插件不超过 200MB。`screenshots` 可选，用于在目录网页展示预览图（仅限 https，可填图片地址字符串或 `{ "url": "...", "label": "说明" }`）。
 
 字段说明见 [plugin-catalog.md](https://github.com/rinchao0721/Melodia/blob/dev/docs/plugin-catalog.md)。
 

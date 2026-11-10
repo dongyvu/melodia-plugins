@@ -184,6 +184,15 @@ h1 { margin: 4px 0 8px; font-size: clamp(30px, 6vw, 46px); line-height: 1.15; fo
 .facts dt { color: var(--text-3); }
 .facts dd { margin: 0; overflow-wrap: anywhere; }
 .facts ul { margin: 0; padding: 0; list-style: none; }
+.shots { display: flex; gap: 10px; overflow-x: auto; padding: 2px 0 4px; }
+.shot {
+  flex: none; display: flex; flex-direction: column; align-items: center; gap: 5px;
+  padding: 6px; border-radius: 8px; background: var(--field); border: 1px solid var(--surface);
+  transition: border-color 150ms ease, transform 120ms var(--ease);
+}
+.shot:active, .lb-nav:active, .lb-close:active { transform: scale(.96); }
+.shot img { height: 176px; width: auto; max-width: 280px; border-radius: 5px; display: block; object-fit: contain; }
+.shot span { max-width: 180px; font-size: 12px; color: var(--text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hash { margin: 0 0 14px; color: var(--text-3); font-size: 13px; }
 .hash summary { cursor: pointer; width: fit-content; }
 .hash code { display: block; margin-top: 4px; overflow-wrap: anywhere; font-size: 12px; }
@@ -194,6 +203,25 @@ h1 { margin: 4px 0 8px; font-size: clamp(30px, 6vw, 46px); line-height: 1.15; fo
   transition: background-color 150ms ease, transform 120ms var(--ease);
 }
 .button.primary { background: var(--accent); color: var(--on-accent); }
+
+.lightbox {
+  position: fixed; inset: 0; z-index: 20; background: rgba(0, 0, 0, .82); backdrop-filter: blur(6px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px;
+  animation: fade 160ms ease backwards;
+}
+.lb-stage { position: relative; display: flex; align-items: center; gap: 16px; max-width: 100%; max-height: calc(100vh - 96px); }
+.lb-img {
+  max-width: min(84vw, 880px); max-height: calc(100vh - 110px); width: auto; height: auto;
+  border-radius: 10px; box-shadow: 0 16px 48px rgba(0, 0, 0, .6); display: block; object-fit: contain;
+}
+.lb-nav, .lb-close {
+  flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--surface); color: var(--text);
+  display: flex; align-items: center; justify-content: center;
+  transition: background-color 150ms ease, transform 120ms var(--ease);
+}
+.lb-close { position: absolute; top: 20px; right: 24px; }
+.lb-nav svg, .lb-close svg { width: 20px; height: 20px; }
+.lb-caption { margin: 0; color: #d6d6d6; font-size: 14px; text-align: center; }
 
 .ghost { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; padding: 12px 8px; animation: breathe 1s ease-in-out infinite alternate; }
 .ghost i { height: 36px; border-radius: 6px; background: var(--surface); }
@@ -211,12 +239,15 @@ h1 { margin: 4px 0 8px; font-size: clamp(30px, 6vw, 46px); line-height: 1.15; fo
 @keyframes rise { from { opacity: 0; transform: translateY(10px); } }
 @keyframes settle { from { opacity: 0; transform: scale(.96); } }
 @keyframes breathe { from { opacity: .55; } to { opacity: 1; } }
+@keyframes fade { from { opacity: 0; } }
 
 @media (hover: hover) and (pointer: fine) {
   .chip:hover { background: var(--surface-strong); }
   .chip[aria-pressed="true"]:hover { background: var(--accent); }
   .button:hover { background: var(--surface-strong); }
   .button.primary:hover { background: var(--accent); }
+  .shot:hover { border-color: var(--surface-strong); }
+  .lb-nav:hover, .lb-close:hover { background: var(--surface-strong); }
   .item:hover .row { background: var(--field); }
   .item:not(.open):hover .number { opacity: 0; transform: translateY(3px); }
   .item:not(.open):hover .chevron { opacity: 1; transform: none; }
@@ -235,9 +266,14 @@ h1 { margin: 4px 0 8px; font-size: clamp(30px, 6vw, 46px); line-height: 1.15; fo
   .index .eq { inset: 3px 6px; }
   .mobile-meta { display: inline; }
   .detail { padding-left: 36px; }
+  .shot img { height: 144px; }
+  .lightbox { padding: 16px 12px; }
+  .lb-stage { gap: 8px; }
+  .lb-img { max-width: calc(100vw - 104px); }
+  .lb-close { top: 14px; right: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cover, .hero-text, .item, .state, .ghost { animation: none; }
+  .cover, .hero-text, .item, .state, .ghost, .lightbox { animation: none; }
   .cover i, .eq i { animation: none; }
   .theme-toggle svg { transition: opacity 150ms ease; }
   .cover i:nth-child(odd), .eq i:nth-child(odd) { transform: scaleY(.55); }
@@ -278,6 +314,21 @@ h1 { margin: 4px 0 8px; font-size: clamp(30px, 6vw, 46px); line-height: 1.15; fo
     <a href="https://github.com/rinchao0721/melodia-plugins">提交说明</a>。
   </footer>
 </main>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="图片预览" hidden>
+  <button class="lb-close" id="lbClose" type="button" aria-label="关闭预览">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <div class="lb-stage">
+    <button class="lb-nav" id="lbPrev" type="button" aria-label="上一张">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <img class="lb-img" id="lbImg" alt="">
+    <button class="lb-nav" id="lbNext" type="button" aria-label="下一张">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+  </div>
+  <p class="lb-caption" id="lbCaption"></p>
+</div>
 
 <script>
 const PERMISSIONS = {
@@ -355,6 +406,69 @@ function icon(path) {
   svg.innerHTML = path;
   return svg;
 }
+function parseScreenshots(plugin) {
+  if (!Array.isArray(plugin?.screenshots)) return [];
+  const list = [];
+  for (const item of plugin.screenshots) {
+    if (typeof item === 'string') {
+      const url = item.trim();
+      if (isHttps(url)) list.push({ url, label: '', broken: false });
+    } else if (item && typeof item === 'object' && typeof item.url === 'string') {
+      const url = item.url.trim();
+      const rawLabel = item.label ?? item.title ?? item.alt ?? '';
+      const label = typeof rawLabel === 'string' ? rawLabel.trim() : '';
+      if (isHttps(url)) list.push({ url, label, broken: false });
+    }
+  }
+  return list;
+}
+
+const lightbox = { items: [], index: 0, pluginName: '', opener: null };
+
+function syncLightbox() {
+  const current = lightbox.items[lightbox.index];
+  if (!current) return;
+  const total = lightbox.items.length;
+  const img = $('lbImg');
+  img.src = current.url;
+  img.alt = current.label || `${lightbox.pluginName} 预览图 ${lightbox.index + 1}`;
+  $('lbPrev').hidden = total <= 1;
+  $('lbNext').hidden = total <= 1;
+  const parts = [current.label, total > 1 ? `${lightbox.index + 1} / ${total}` : ''].filter(Boolean);
+  const caption = $('lbCaption');
+  caption.textContent = parts.join(' · ');
+  caption.hidden = parts.length === 0;
+}
+function openLightbox(items, target, pluginName, opener) {
+  const valid = items.filter(item => !item.broken);
+  const index = valid.indexOf(target);
+  if (index === -1) return;
+  lightbox.items = valid;
+  lightbox.index = index;
+  lightbox.pluginName = pluginName;
+  lightbox.opener = opener;
+  syncLightbox();
+  $('lightbox').hidden = false;
+  document.body.style.overflow = 'hidden';
+  $('lbClose').focus();
+}
+function stepLightbox(delta) {
+  const total = lightbox.items.length;
+  if (total <= 1) return;
+  lightbox.index = (lightbox.index + delta + total) % total;
+  syncLightbox();
+}
+function closeLightbox() {
+  const box = $('lightbox');
+  if (box.hidden) return;
+  box.hidden = true;
+  $('lbImg').removeAttribute('src');
+  document.body.style.overflow = '';
+  if (lightbox.opener && lightbox.opener.isConnected && !lightbox.opener.hidden) {
+    lightbox.opener.focus();
+  }
+  lightbox.opener = null;
+}
 
 function detail(plugin) {
   const box = el('div', 'detail');
@@ -363,9 +477,11 @@ function detail(plugin) {
   }
   const facts = el('dl', 'facts');
   const add = (label, value) => {
-    const content = el('dd');
-    content.append(value);
-    facts.append(el('dt', '', label), content);
+    const dt = el('dt', '', label);
+    const dd = el('dd');
+    dd.append(value);
+    facts.append(dt, dd);
+    return { dt, dd };
   };
   add('平台', (plugin.platforms?.length ? plugin.platforms.map(key => PLATFORMS[key] ?? key) : ['全部平台']).join('、'));
   if (plugin.minAppVersion) add('应用版本', `${plugin.minAppVersion} 及以上`);
@@ -376,6 +492,34 @@ function detail(plugin) {
     permissions.append(el('li', '', '不需要权限'));
   }
   add('权限', permissions);
+
+  const screenshots = parseScreenshots(plugin);
+  if (screenshots.length > 0) {
+    const shots = el('div', 'shots');
+    const row = add('预览', shots);
+    screenshots.forEach((shot, index) => {
+      const thumb = el('button', 'shot');
+      thumb.type = 'button';
+      thumb.setAttribute('aria-label', shot.label ? `查看预览图：${shot.label}` : `查看预览图 ${index + 1}`);
+      const img = el('img');
+      img.src = shot.url;
+      img.alt = shot.label || `${plugin.name} 预览图 ${index + 1}`;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.addEventListener('error', () => {
+        shot.broken = true;
+        thumb.hidden = true;
+        if (screenshots.every(item => item.broken)) {
+          row.dt.hidden = true;
+          row.dd.hidden = true;
+        }
+      });
+      thumb.append(img);
+      if (shot.label) thumb.append(el('span', '', shot.label));
+      thumb.addEventListener('click', () => openLightbox(screenshots, shot, plugin.name, thumb));
+      shots.append(thumb);
+    });
+  }
   box.append(facts);
 
   const hash = el('details', 'hash');
@@ -593,6 +737,26 @@ $('themeToggle').addEventListener('click', () => {
 });
 lightScheme.addEventListener('change', syncThemeToggle);
 syncThemeToggle();
+
+$('lbClose').addEventListener('click', closeLightbox);
+$('lbPrev').addEventListener('click', () => stepLightbox(-1));
+$('lbNext').addEventListener('click', () => stepLightbox(1));
+$('lightbox').addEventListener('click', event => {
+  if (event.target === $('lightbox') || event.target.classList.contains('lb-stage')) closeLightbox();
+});
+window.addEventListener('keydown', event => {
+  if ($('lightbox').hidden) return;
+  if (event.key === 'Escape') {
+    event.preventDefault();
+    closeLightbox();
+  } else if (event.key === 'ArrowLeft') {
+    event.preventDefault();
+    stepLightbox(-1);
+  } else if (event.key === 'ArrowRight') {
+    event.preventDefault();
+    stepLightbox(1);
+  }
+});
 
 $('search').addEventListener('input', event => {
   state.query = event.target.value;
