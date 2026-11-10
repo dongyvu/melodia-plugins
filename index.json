@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "updatedAt": "2026-11-06",
+  "updatedAt": "2026-11-10",
   "plugins": [
     {
       "id": "com.melodia.discordpresence",
@@ -51,6 +51,23 @@
         "url": "https://github.com/rinchao0721/melodia-plugins/releases/download/lx-style-v0.5.2/lx-style.melodiaplugin",
         "sha256": "d08c0f5b7b495930ac1668b5dc6fd1e2c0197fcca8f4ca8337dc49e7d5ddbf99",
         "size": 3370
+      }
+    },
+    {
+      "id": "com.melodia.fluidplayer",
+      "name": "流光风格播放页",
+      "version": "1.0.0",
+      "kind": "sandbox",
+      "author": "涷雨",
+      "description": "参考QQ音乐和汽水音乐的播放页：随封面色相变化的流光背景与歌词配色，支持横竖屏独立布局和迷你播放器渐变。",
+      "platforms": ["android"],
+      "apiVersion": "1.10",
+      "permissions": [],
+      "source": "https://github.com/rinchao0721/melodia-plugins/tree/fluid-player-v1.0.0/fluid-player",
+      "download": {
+        "url": "https://github.com/rinchao0721/melodia-plugins/releases/download/fluid-player-v1.0.0/fluid-player.melodiaplugin",
+        "sha256": "a6f9a5116bbb26a15662dd6563afbb72839f4d8654c2b08529cf6c7df359cca0",
+        "size": 5307
       }
     }
   ]
