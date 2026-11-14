@@ -2,387 +2,139 @@
   "frame": {
     "canvas": "background/fluid.js",
     "sungColor": {
-      "huePalette": "cover.base",
-      "minSaturation": 0.16,
-      "neutral": {
-        "light": "#526F8F",
-        "dark": "#CCDEF3"
-      },
-      "stops": [
-        {
-          "hue": 0,
-          "color": {
-            "light": "#AD4255",
-            "dark": "#FFB7C1"
+      "adjust": {
+        "mix": [
+          {
+            "adjust": "cover.base",
+            "saturation": 4.0
+          },
+          {
+            "light": "#FF5D5D5D",
+            "dark": "#FFE5E5E5"
           }
-        },
-        {
-          "hue": 15,
-          "color": {
-            "light": "#A65B34",
-            "dark": "#FFC89E"
-          }
-        },
-        {
-          "hue": 45,
-          "color": {
-            "light": "#8D6D29",
-            "dark": "#FFE09A"
-          }
-        },
-        {
-          "hue": 75,
-          "color": {
-            "light": "#387F59",
-            "dark": "#A9EAC1"
-          }
-        },
-        {
-          "hue": 165,
-          "color": {
-            "light": "#2B7B85",
-            "dark": "#A4E8ED"
-          }
-        },
-        {
-          "hue": 195,
-          "color": {
-            "light": "#3D6EAC",
-            "dark": "#B4D4FF"
-          }
-        },
-        {
-          "hue": 255,
-          "color": {
-            "light": "#7654AD",
-            "dark": "#DAC5FF"
-          }
-        },
-        {
-          "hue": 285,
-          "color": {
-            "light": "#A25486",
-            "dark": "#F8C2E8"
-          }
-        },
-        {
-          "hue": 345,
-          "color": {
-            "light": "#AD4255",
-            "dark": "#FFB7C1"
-          }
+        ],
+        "amount": {
+          "light": 0.9,
+          "dark": 0.87
         }
-      ]
-    },
-    "unsungColor": {
-      "light": "#73202124",
-      "dark": "#73FFFFFF"
-    },
-    "harmonySungColor": {
-      "huePalette": "cover.base",
-      "minSaturation": 0.16,
-      "neutral": {
-        "light": "#486588",
-        "dark": "#CCDEF3"
       },
-      "stops": [
-        {
-          "hue": 0,
-          "color": {
-            "light": "#A9354B",
-            "dark": "#FFB7C1"
-          }
-        },
-        {
-          "hue": 15,
-          "color": {
-            "light": "#A05027",
-            "dark": "#FFC89E"
-          }
-        },
-        {
-          "hue": 45,
-          "color": {
-            "light": "#85631B",
-            "dark": "#FFE09A"
-          }
-        },
-        {
-          "hue": 75,
-          "color": {
-            "light": "#2C774E",
-            "dark": "#A9EAC1"
-          }
-        },
-        {
-          "hue": 165,
-          "color": {
-            "light": "#1D737D",
-            "dark": "#A4E8ED"
-          }
-        },
-        {
-          "hue": 195,
-          "color": {
-            "light": "#3164A7",
-            "dark": "#B4D4FF"
-          }
-        },
-        {
-          "hue": 255,
-          "color": {
-            "light": "#6D4AA9",
-            "dark": "#DAC5FF"
-          }
-        },
-        {
-          "hue": 285,
-          "color": {
-            "light": "#9C4A7E",
-            "dark": "#F8C2E8"
-          }
-        },
-        {
-          "hue": 345,
-          "color": {
-            "light": "#A9354B",
-            "dark": "#FFB7C1"
-          }
-        }
-      ]
-    },
-    "harmonyUnsungColor": {
-      "light": "#38202124",
-      "dark": "#38FFFFFF"
-    },
-    "canvasColors": {
-      "glow1": {
-        "huePalette": "cover.base",
-        "minSaturation": 0.16,
-        "neutral": {
-          "light": "#A8C5E7",
-          "dark": "#7B99BF"
-        },
-        "stops": [
-          {
-            "hue": 0,
-            "color": {
-              "light": "#FF969D",
-              "dark": "#EF687C"
-            }
-          },
-          {
-            "hue": 15,
-            "color": {
-              "light": "#FFA66F",
-              "dark": "#F99552"
-            }
-          },
-          {
-            "hue": 45,
-            "color": {
-              "light": "#FFD66A",
-              "dark": "#E8BB48"
-            }
-          },
-          {
-            "hue": 75,
-            "color": {
-              "light": "#80D6A0",
-              "dark": "#58B982"
-            }
-          },
-          {
-            "hue": 165,
-            "color": {
-              "light": "#72D6D8",
-              "dark": "#4FBFCB"
-            }
-          },
-          {
-            "hue": 195,
-            "color": {
-              "light": "#86B8FF",
-              "dark": "#659CEB"
-            }
-          },
-          {
-            "hue": 255,
-            "color": {
-              "light": "#B6A1FF",
-              "dark": "#9E80E2"
-            }
-          },
-          {
-            "hue": 285,
-            "color": {
-              "light": "#F59BD4",
-              "dark": "#DC7CBB"
-            }
-          },
-          {
-            "hue": 345,
-            "color": {
-              "light": "#FF969D",
-              "dark": "#EF687C"
-            }
-          }
-        ]
-      },
-      "glow2": {
-        "huePalette": "cover.base",
-        "minSaturation": 0.16,
-        "neutral": {
-          "light": "#C1D8EE",
-          "dark": "#6888B0"
-        },
-        "stops": [
-          {
-            "hue": 0,
-            "color": {
-              "light": "#FFB6BA",
-              "dark": "#D95372"
-            }
-          },
-          {
-            "hue": 15,
-            "color": {
-              "light": "#FFC18E",
-              "dark": "#E77B45"
-            }
-          },
-          {
-            "hue": 45,
-            "color": {
-              "light": "#FFE294",
-              "dark": "#DDA33B"
-            }
-          },
-          {
-            "hue": 75,
-            "color": {
-              "light": "#A6E7B9",
-              "dark": "#46A77D"
-            }
-          },
-          {
-            "hue": 165,
-            "color": {
-              "light": "#9FE5E3",
-              "dark": "#3DABB8"
-            }
-          },
-          {
-            "hue": 195,
-            "color": {
-              "light": "#ACD0FF",
-              "dark": "#537ED1"
-            }
-          },
-          {
-            "hue": 255,
-            "color": {
-              "light": "#CEBDFF",
-              "dark": "#8669CC"
-            }
-          },
-          {
-            "hue": 285,
-            "color": {
-              "light": "#F8BCE4",
-              "dark": "#C463A7"
-            }
-          },
-          {
-            "hue": 345,
-            "color": {
-              "light": "#FFB6BA",
-              "dark": "#D95372"
-            }
-          }
-        ]
-      },
-      "glow3": {
-        "huePalette": "cover.base",
-        "minSaturation": 0.16,
-        "neutral": {
-          "light": "#D7E7F5",
-          "dark": "#AAC4E1"
-        },
-        "stops": [
-          {
-            "hue": 0,
-            "color": {
-              "light": "#FFD1D3",
-              "dark": "#FF9BA6"
-            }
-          },
-          {
-            "hue": 15,
-            "color": {
-              "light": "#FFD7B5",
-              "dark": "#FFC38D"
-            }
-          },
-          {
-            "hue": 45,
-            "color": {
-              "light": "#FFF0BD",
-              "dark": "#FFE19A"
-            }
-          },
-          {
-            "hue": 75,
-            "color": {
-              "light": "#C6F0D1",
-              "dark": "#96E0B3"
-            }
-          },
-          {
-            "hue": 165,
-            "color": {
-              "light": "#C2F1EB",
-              "dark": "#92E0DF"
-            }
-          },
-          {
-            "hue": 195,
-            "color": {
-              "light": "#CCE3FF",
-              "dark": "#9BC6FF"
-            }
-          },
-          {
-            "hue": 255,
-            "color": {
-              "light": "#E4D9FF",
-              "dark": "#C7ADF9"
-            }
-          },
-          {
-            "hue": 285,
-            "color": {
-              "light": "#FBD9EF",
-              "dark": "#F1AFE0"
-            }
-          },
-          {
-            "hue": 345,
-            "color": {
-              "light": "#FFD1D3",
-              "dark": "#FF9BA6"
-            }
-          }
-        ]
+      "saturation": {
+        "light": 4.0,
+        "dark": 2.5
       }
     },
+    "unsungColor": {
+      "adjust": {
+        "mix": [
+          {
+            "adjust": "cover.base",
+            "saturation": 4.0
+          },
+          {
+            "light": "#624D4D4D",
+            "dark": "#5EDCDCDC"
+          }
+        ],
+        "amount": {
+          "light": 0.89,
+          "dark": 0.87
+        }
+      },
+      "saturation": {
+        "light": 4.0,
+        "dark": 2.5
+      }
+    },
+    "harmonySungColor": {
+      "adjust": {
+        "mix": [
+          {
+            "adjust": "cover.base",
+            "saturation": 4.0
+          },
+          {
+            "light": "#FF595959",
+            "dark": "#FFE5E5E5"
+          }
+        ],
+        "amount": {
+          "light": 0.9,
+          "dark": 0.87
+        }
+      },
+      "saturation": {
+        "light": 4.0,
+        "dark": 2.5
+      }
+    },
+    "harmonyUnsungColor": {
+      "adjust": {
+        "mix": [
+          {
+            "adjust": "cover.base",
+            "saturation": 4.0
+          },
+          {
+            "light": "#1F494949",
+            "dark": "#1ADCDCDC"
+          }
+        ],
+        "amount": {
+          "light": 0.89,
+          "dark": 0.87
+        }
+      },
+      "saturation": {
+        "light": 4.0,
+        "dark": 2.5
+      }
+    },
+    "canvasColors": {
+      "coverBase": "cover.base"
+    },
     "translationColor": {
-      "light": "#73202124",
-      "dark": "#73FFFFFF"
+      "adjust": {
+        "mix": [
+          {
+            "adjust": "cover.base",
+            "saturation": 4.0
+          },
+          {
+            "light": "#624D4D4D",
+            "dark": "#5EDCDCDC"
+          }
+        ],
+        "amount": {
+          "light": 0.89,
+          "dark": 0.87
+        }
+      },
+      "saturation": {
+        "light": 4.0,
+        "dark": 2.5
+      }
     },
     "romanizationColor": {
-      "light": "#73202124",
-      "dark": "#73FFFFFF"
+      "adjust": {
+        "mix": [
+          {
+            "adjust": "cover.base",
+            "saturation": 4.0
+          },
+          {
+            "light": "#624D4D4D",
+            "dark": "#5EDCDCDC"
+          }
+        ],
+        "amount": {
+          "light": 0.89,
+          "dark": 0.87
+        }
+      },
+      "saturation": {
+        "light": 4.0,
+        "dark": 2.5
+      }
     }
   },
   "layout": "host"

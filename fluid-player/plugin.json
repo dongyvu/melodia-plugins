@@ -3,9 +3,9 @@
   "kind": "sandbox",
   "id": "com.melodia.fluidplayer",
   "name": "流光风格播放页",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "涷雨",
-  "description": "封面色相选择插件预设光斑与歌词配色，使用宿主通用接口。需要 API 1.10 宿主。",
+  "description": "流光背景、歌词和迷你播放器渐变均随封面取色。需要 API 1.10 宿主。",
   "apiVersion": "1.10",
   "platforms": [
     "android"
